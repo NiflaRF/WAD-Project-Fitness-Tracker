@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Royal Fitness</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: #222;
+        color: #fff;
+      }
+
+      header h1 span {
+        color: #00b894;
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 1rem;
+        font-weight: bold;
+      }
+
+      .hero {
+        display: flex;
+        height: calc(100vh - 80px); /* Full height minus header */
+      }
+
+      .hero-text,
+      .hero-image {
+        flex: 1;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .hero-text {
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .hero-text h2 {
+        font-size: 2.5rem;
+        color: #222;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero-text p {
+        font-size: 1.2rem;
+        color: #555;
+      }
+
+      .hero-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          flex-direction: column;
+        }
+
+        .hero-text,
+        .hero-image {
+          width: 100%;
+        }
+      }
+      footer {
+        background-color: #222;
+        color: #fff;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        margin-top: auto;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-content p {
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Royal <span>Fitness</span></h1>
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <div class="hero-text">
+        <h2>Welcome Back!</h2>
+        <p>Track your progress, explore services, and stay motivated.</p>
+      </div>
+      <div class="hero-image">
+        <img src="photos/1308025.jpg" alt="Fitness Dashboard" />
+      </div>
+    </main>
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 Royal Fitness. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

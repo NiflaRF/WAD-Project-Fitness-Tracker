@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services - Royal Fitness</title>
+    <style>
+      /* Basic Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f4f4f4;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: #222;
+        color: #fff;
+      }
+
+      header h1 span {
+        color: #00b894;
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 1rem;
+        font-weight: bold;
+      }
+
+      .services {
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+
+      .services h2 {
+        font-size: 2.5rem;
+        color: #222;
+        margin-bottom: 2rem;
+      }
+
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      .card {
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        height: 250px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #fff;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1;
+      }
+
+      .card-content {
+        position: relative;
+        z-index: 2;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        text-align: center;
+      }
+
+      .card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #00f5d4;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        .card {
+          width: 90%;
+        }
+      }
+
+      footer {
+        background-color: #222;
+        color: #fff;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        margin-top: auto;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-content p {
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Royal <span>Fitness</span></h1>
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="review.html">Review</a>
+      </nav>
+    </header>
+
+    <section class="services">
+      <h2>Our Services</h2>
+      <div class="card-container">
+        <div
+          class="card"
+          style="background-image: url('photos/fitness-trainer.jpg')"
+        >
+          <div class="card-content">
+            <h3>Personal Training</h3>
+            <p>
+              One-on-one sessions with expert trainers to help you reach your
+              fitness goals efficiently.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          style="background-image: url('photos/Free-Onilne-Workout.jpg')"
+        >
+          <div class="card-content">
+            <h3>Online Workout Plans</h3>
+            <p>
+              Customizable routines available anytime, anywhere, designed to fit
+              your schedule.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="background-image: url('photos/nutrition.jpg')">
+          <div class="card-content">
+            <h3>Nutrition Guidance</h3>
+            <p>
+              Professional advice to complement your workout with a balanced
+              diet and proper nutrition.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="background-image: url('photos/yoga.jpg')">
+          <div class="card-content">
+            <h3>Yoga and Meditation</h3>
+            <p>
+              Sessions to enhance mental well-being, reduce stress, and improve
+              flexibility and focus.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          style="background-image: url('photos/Track-Your-Fitness.jpg')"
+        >
+          <div class="card-content">
+            <h3>Progress Tracking</h3>
+            <p>
+              Track your fitness journey with tools and feedback to monitor and
+              motivate your progress.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          style="background-image: url('photos/Group-Exercise.jpg')"
+        >
+          <div class="card-content">
+            <h3>Group Fitness Classes</h3>
+            <p>
+              Join energetic group classes like Zumba, HIIT, and circuit
+              training that keep you motivated and on track.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          style="background-image: url('photos/what-is-a-wellness-coach.jpg')"
+        >
+          <div class="card-content">
+            <h3>Wellness Coaching</h3>
+            <p>
+              Get personalized advice to improve sleep, mental health, and
+              overall lifestyle with our wellness experts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 Royal Fitness. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

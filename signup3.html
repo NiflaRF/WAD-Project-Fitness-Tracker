@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Royal Fitness</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        height: 100vh;
+      }
+
+      .image-side {
+        flex: 1;
+        background: url("photos/1308025.jpg") no-repeat center center;
+        background-size: cover;
+      }
+
+      .form-side {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+
+      .form-container {
+        width: 100%;
+        max-width: 450px;
+        padding: 2rem;
+        background-color: #f8f8f8;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-container h2 {
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #00b894;
+      }
+
+      .form-container input {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .form-container button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #00b894;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      .form-container button:hover {
+        background-color: #019875;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .image-side {
+          height: 40vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="image-side"></div>
+      <div class="form-side">
+        <div class="form-container">
+          <h2>Sign Up</h2>
+          <form action="signup.php" method="POST">
+            <label for="issue">What kind of issue you have?</label>
+            <textarea
+              id="issue"
+              name="issue"
+              rows="4"
+              placeholder="Describe any issues or concerns"
+              required
+            ></textarea>
+
+            <label for="goal">What is your main goal?</label>
+            <textarea
+              id="goal"
+              name="goal"
+              rows="4"
+              placeholder="Describe your main fitness goal"
+              required
+            ></textarea>
+
+            <button type="submit"><a href="home.html">Submit</a></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

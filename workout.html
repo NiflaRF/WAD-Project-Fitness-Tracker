@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Workout Goals</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    /* Header */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #111;
+      padding: 15px 40px;
+      color: white;
+    }
+
+    .navbar h1 {
+      font-size: 24px;
+    }
+
+    .navbar h1 span {
+      color: #5DD28E;
+    }
+
+    .nav-links a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #5DD28E;
+    }
+
+    /* Title */
+    .page-title {
+      text-align: center;
+      font-size: 30px;
+      margin: 30px 0;
+    }
+
+    /* Goal Cards */
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      padding: 20px 40px;
+    }
+
+    .card {
+      background-size: cover;
+      background-position: center;
+      width: 250px;
+      height: 280px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card-text {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      color: #A8F9D8;
+      width: 100%;
+    }
+
+    .card-text h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .card-text p {
+      font-size: 14px;
+      color: #f1f1f1;
+    }
+
+    /* Modal Popup */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .close {
+      color: #aaa;
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 10px;
+    }
+
+    .modal-content ul {
+      margin: 10px 0 20px;
+      padding-left: 20px;
+    }
+
+    .modal-content ul li {
+      margin-bottom: 8px;
+    }
+
+    .done-btn {
+      background: #5dd28e;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .done-btn:hover {
+      background: #4ab57a;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 90%;
+      }
+
+      .modal-content {
+        margin-top: 30%;
+      }
+    }
+    footer {
+        background-color: #222;
+        color: #fff;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        margin-top: auto;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-content p {
+        margin-bottom: 0.5rem;
+      }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="navbar">
+    <h1>Royal <span>Fitness</span></h1>
+    <nav class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="workout.html">Workout</a>
+      <a href="aboutus.html">About Us</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <h2 class="page-title">Choose Your Goal for Today</h2>
+
+  <!-- Goal Cards -->
+  <div class="card-container">
+
+    <div class="card" style="background-image: url('photos/jump-rope.jpg')" data-goal="Lose Weight">
+      <div class="card-text">
+        <h3>Lose Weight</h3>
+        <p>Burn fat effectively with high-intensity workouts.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('photos/weight-lifting.jpeg')" data-goal="Build Muscle">
+      <div class="card-text">
+        <h3>Build Muscle</h3>
+        <p>Strengthen and grow your muscles with targeted routines.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('photos/cardio.jpeg')" data-goal="Cardio Training">
+      <div class="card-text">
+        <h3>Cardio Training</h3>
+        <p>Improve endurance and heart health through cardio.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('photos/yoga (1).jpg')" data-goal="Yoga and Flexibility">
+      <div class="card-text">
+        <h3>Yoga & Flexibility</h3>
+        <p>Boost flexibility and mindfulness with yoga sessions.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('photos/exercise.jpeg')" data-goal="Full Body">
+      <div class="card-text">
+        <h3>Full Body</h3>
+        <p>A complete body workout to activate all muscle groups.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('photos/upper-body.jpg')" data-goal="Upper Body">
+      <div class="card-text">
+        <h3>Upper Body</h3>
+        <p>Focus on building strength and definition in your arms, chest, shoulders, and back with powerful upper-body exercises.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('photos/lower-body.jpg')" data-goal="Lower Body">
+      <div class="card-text">
+        <h3>Lower Body</h3>
+        <p>Enhance leg power, glute strength, and lower-body endurance through squats, lunges, and targeted training routines.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('photos/beginner-stretches.jpg')" data-goal="Stretching">
+      <div class="card-text">
+        <h3>Stretching</h3>
+        <p>Improve flexibility, reduce muscle tension, and aid recovery with full-body stretching and mobility exercises.</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 Royal Fitness. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+  <!-- Modal -->
+  <div id="goalModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modal-title">[Goal Name]</h2>
+      <ul id="modal-exercises">
+        <!-- JS will populate -->
+      </ul>
+      <button class="done-btn">Mark as Done</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const goalCards = document.querySelectorAll('.card');
+    const modal = document.getElementById('goalModal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalExercises = document.getElementById('modal-exercises');
+    const closeModal = document.querySelector('.close');
+
+    const exampleExercises = {
+      "Lose Weight": ["Jump rope – 5 min", "Running – 15 min", "Burpees – 3 sets"],
+      "Build Muscle": ["Push-ups – 3 sets", "Deadlifts – 3 sets", "Bicep Curls – 3 sets"],
+      "Cardio Training": ["High knees – 2 min", "Treadmill – 20 min", "Mountain climbers – 3 sets"],
+      "Yoga and Flexibility": ["Downward Dog – 2 min", "Sun Salutation – 3 rounds", "Child's Pose – 3 min"],
+      "Full Body": ["Jump Squats – 3 sets", "Push-ups – 3 sets", "Plank – 1 min"],
+      "Upper Body": ["Push-ups", "Pull-ups", "Shoulder press"],
+      "Lower Body": ["Squats", "Lunges", "Calf raises"],
+       "Stretching": ["Hamstring stretch", "Quad stretch", "Calf stretch"],
+    };
+
+    goalCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const goalName = card.getAttribute('data-goal');
+        modalTitle.textContent = goalName;
+        modalExercises.innerHTML = "";
+
+        const exercises = exampleExercises[goalName] || ["No exercises found."];
+        exercises.forEach(ex => {
+          const li = document.createElement("li");
+          li.textContent = ex;
+          modalExercises.appendChild(li);
+        });
+
+        modal.style.display = "block";
+      });
+    });
+
+    closeModal.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    window.onclick = (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+
+</body>
+</html>

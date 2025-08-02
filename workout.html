@@ -290,6 +290,7 @@
     const modalTitle = document.getElementById('modal-title');
     const modalExercises = document.getElementById('modal-exercises');
     const closeModal = document.querySelector('.close');
+    const doneButton = document.getElementById('doneButton');
 
     const exampleExercises = {
       "Lose Weight": ["Jump rope – 5 min", "Running – 15 min", "Burpees – 3 sets"],
@@ -299,8 +300,21 @@
       "Full Body": ["Jump Squats – 3 sets", "Push-ups – 3 sets", "Plank – 1 min"],
       "Upper Body": ["Push-ups", "Pull-ups", "Shoulder press"],
       "Lower Body": ["Squats", "Lunges", "Calf raises"],
-       "Stretching": ["Hamstring stretch", "Quad stretch", "Calf stretch"],
+      "Stretching": ["Hamstring stretch", "Quad stretch", "Calf stretch"]
     };
+
+    const goalWorkoutIds = {
+      "Lose Weight": 1,
+      "Build Muscle": 2,
+      "Cardio Training": 3,
+      "Yoga and Flexibility": 4,
+      "Full Body": 5,
+      "Upper Body": 6,
+      "Lower Body": 7,
+      "Stretching": 8
+    };
+
+    let currentWorkoutId = null;
 
     goalCards.forEach(card => {
       card.addEventListener('click', () => {
@@ -315,6 +329,7 @@
           modalExercises.appendChild(li);
         });
 
+        currentWorkoutId = goalWorkoutIds[goalName];
         modal.style.display = "block";
       });
     });
@@ -328,6 +343,27 @@
         modal.style.display = "none";
       }
     };
+
+    doneButton.addEventListener('click', () => {
+      if (currentWorkoutId) {
+        fetch('mark_done.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `workout_id=${currentWorkoutId}`
+        })
+        .then(response => response.text())
+        .then(data => {
+          alert(data); // Or show a nice modal message
+          modal.style.display = "none";
+        })
+        .catch(err => {
+          alert("Failed to mark workout.");
+          console.error(err);
+        });
+      }
+    });
   </script>
 
 </body>

@@ -54,7 +54,8 @@ nav a[href="review.html"] {
 
 .hero-section {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("photos/Group-Exercise.jpg");
+    url("/WAD-Project-Fitness-Tracker/photos/Group-Exercise.jpg");
+
   background-size: cover;
   background-position: center;
   color: white;

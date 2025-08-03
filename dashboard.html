@@ -188,7 +188,7 @@
         }
       }
     </style>
-    <!--<link rel="stylesheet" href="styles/dashboard.css">-->
+     <!--<link rel="stylesheet" href="styles/dashboard.css">-->
   </head>
   <body>
     <header>
@@ -196,14 +196,13 @@
       <nav>
         <a href="home.html" class="highlight-btn">Home</a>
         <a href="index.html" class="highlight-btn">Log Out</a>
-        <!-- Highlighted button -->
       </nav>
     </header>
 
     <div class="main-card">
       <!-- Column 1 -->
       <div class="column profile">
-        <h2>Sebastian Bennett</h2>
+        <h2>Loading...</h2>
         <img src="photos/1308025.jpg" alt="Profile Photo" />
         <div class="profile-buttons">
           <button class="btn">Update Profile</button>
@@ -216,18 +215,18 @@
         <div class="inner-card">
           <h3>📌 Personal Details</h3>
           <ul>
-            <li>Name: Sebastian Bennett</li>
-            <li>Age: 32</li>
-            <li>DOB: 1993-04-20</li>
-            <li>Gender: Male</li>
+            <li>Name: Loading...</li>
+            <li>Age: Loading...</li>
+            <li>DOB: Loading...</li>
+            <li>Gender: Loading...</li>
           </ul>
         </div>
         <div class="inner-card">
           <h3>📞 Contact Information</h3>
           <ul>
-            <li>Email: sebastian@email.com</li>
-            <li>Phone: +1234567890</li>
-            <li>Address: 123 Anywhere St., Any City</li>
+            <li>Email: Loading...</li>
+            <li>Phone: Loading...</li>
+            <li>Address: Loading...</li>
           </ul>
         </div>
       </div>
@@ -236,7 +235,7 @@
       <div class="column">
         <div class="inner-card">
           <h3>🎯 Goals & Motivation</h3>
-          <p>Reduse the weigth</p>
+          <p>Loading...</p>
         </div>
 
         <div class="inner-card bmi-calculator">
@@ -256,6 +255,51 @@
     </footer>
 
     <script>
+      // Fetch user data and update the dashboard
+      async function loadUserData() {
+        try {
+          const response = await fetch('dashboard.php', { credentials: 'include' });
+          if (!response.ok) {
+            throw new Error('Failed to load user data');
+          }
+          const user = await response.json();
+
+          if (user.error) {
+            alert(user.error);
+            return;
+          }
+
+          // Update profile column
+          document.querySelector('.profile h2').textContent = user.full_name;
+
+          // Update Personal Details
+          const personalDetails = `
+            <li>Name: ${user.full_name}</li>
+            <li>Age: ${user.age}</li>
+            <li>DOB: ${user.date_of_birth}</li>
+            <li>Gender: ${user.gender}</li>
+          `;
+          document.querySelector('.main-card .column:nth-child(2) .inner-card:nth-child(1) ul').innerHTML = personalDetails;
+
+          // Update Contact Information
+          const contactInfo = `
+            <li>Email: ${user.email}</li>
+            <li>Phone: ${user.phone_number ?? 'N/A'}</li>
+            <li>Address: ${user.home_address ?? 'N/A'}</li>
+          `;
+          document.querySelector('.main-card .column:nth-child(2) .inner-card:nth-child(2) ul').innerHTML = contactInfo;
+
+          // Update Goals & Motivation
+          document.querySelector('.main-card .column:nth-child(3) .inner-card:nth-child(1) p').textContent = user.main_goal ?? 'Not specified';
+
+        } catch (error) {
+          console.error(error);
+          alert('Error loading user data');
+        }
+      }
+
+      window.onload = loadUserData;
+
       function calculateBMI() {
         const height = parseFloat(document.getElementById("height").value);
         const weight = parseFloat(document.getElementById("weight").value);

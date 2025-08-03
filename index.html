@@ -38,6 +38,21 @@
         font-weight: bold;
       }
 
+      .highlight-btn {
+        padding: 8px 14px;
+        border: 2px solid #00b894;
+        border-radius: 6px;
+        background-color: rgba(0, 184, 148, 0.1);
+        color: #00b894;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .highlight-btn:hover {
+        background-color: #00b894;
+        color: white;
+      }
+
       /* Hero Section */
       .hero {
         display: flex;
@@ -96,14 +111,22 @@
         object-fit: cover;
         border-radius: 10px;
       }
+      footer {
+        background: #111;
+        color: white;
+        text-align: center;
+        padding: 1rem 2rem;
+        margin-top: 30px;
+      }
     </style>
+    <!--<link rel="stylesheet" href="styles/index.css">-->
   </head>
   <body>
     <header>
       <h1>Fitzy <span>Fitness</span></h1>
       <nav>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Sign Up</a>
+        <a href="login.html" class="highlight-btn">Login</a>
+        <a href="signup.html" class="highlight-btn">Sign Up</a>
       </nav>
     </header>
 

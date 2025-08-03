@@ -1,0 +1,302 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  line-height: 1.6;
+  color: #333;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #222;
+  color: #fff;
+}
+
+header h1 span {
+  color: #00b894;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+nav a[href="review.html"] {
+  border: 2px solid #00b894;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.highlight-btn {
+  padding: 8px 14px;
+  border: 2px solid #00b894;
+  border-radius: 6px;
+  background-color: rgba(0, 184, 148, 0.1);
+  color: #00b894;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.highlight-btn:hover {
+  background-color: #00b894;
+  color: white;
+}
+
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("photos/Group-Exercise.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero-section h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #00b894;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.stats-section {
+  background: white;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  flex: 1;
+  min-width: 200px;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #00b894;
+  display: block;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.reviews-section {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.reviews-section h3 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.review-card {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.reviewer-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.reviewer-info h4 {
+  color: #222;
+  margin-bottom: 0.2rem;
+}
+
+.reviewer-info .rating {
+  color: #ffd700;
+  font-size: 1.1rem;
+}
+
+.review-text {
+  color: #666;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.testimonials-section {
+  background: #222;
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.testimonials-section h3 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #00b894;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 2rem;
+  border: 1px solid #00b894;
+}
+
+.testimonial-card h4 {
+  color: #00b894;
+  margin-bottom: 1rem;
+}
+
+.testimonial-card p {
+  color: #ccc;
+  font-style: italic;
+}
+
+.leave-review {
+  background: white;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.leave-review h3 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.leave-review p {
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.review-form {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #222;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.submit-btn {
+  background: #00b894;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #019875;
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-section h2 {
+    font-size: 2rem;
+  }
+}

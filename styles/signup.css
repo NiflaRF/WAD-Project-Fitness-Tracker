@@ -1,69 +1,82 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
-body,
-html {
-  height: 100%;
-  font-family: Arial, sans-serif;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
 .container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .image-side {
   flex: 1;
-  background: url("photos/1308025.jpg") no-repeat center center;
+  background: url("/WAD-Project-Fitness-Tracker/photos/1308025.jpg") no-repeat center center;
   background-size: cover;
 }
 
 .form-side {
   flex: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 2rem;
 }
 
 .form-container {
+  background-color: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 450px;
-  padding: 2rem;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
 }
 
 .form-container h2 {
-  margin-bottom: 1.5rem;
   text-align: center;
   color: #00b894;
+  margin-bottom: 1.5rem;
 }
 
-.form-container input {
+label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+input,
+textarea {
   width: 100%;
   padding: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 1rem;
 }
 
-.form-container button {
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.8rem;
   background-color: #00b894;
-  color: white;
+  color: #fff;
+  font-size: 1rem;
   border: none;
   border-radius: 5px;
-  font-size: 1rem;
   cursor: pointer;
 }
 
-.form-container button:hover {
+button:hover {
   background-color: #019875;
 }
 
@@ -71,7 +84,6 @@ html {
   .container {
     flex-direction: column;
   }
-
   .image-side {
     height: 40vh;
   }

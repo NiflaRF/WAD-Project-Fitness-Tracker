@@ -119,7 +119,7 @@ class User {
     }
 }
 else {
-    header("Location: ../signup.html");
+    header("Location:/WADProject/WAD-Project-Fitness-Tracker/signup.html");
     exit();
 }
 

@@ -1,21 +1,22 @@
 <?php
+
 session_start();
 
-// Database connection using PDO OOP
+// Database connection 
 class Database {
     private $host = "localhost";
-    private $db_name = "fitness_db"; // update to your DB name
+    private $db_name = "fitness_tracker"; 
     private $username = "root";
-    private $password = "";
+    private $password = "root";
     public $conn;
 
     public function __construct() {
         try {
             $this->conn = new PDO("mysql:host={$this->host};dbname={$this->db_name}",
-                                  $this->username, $this->password);
+            $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
-            die("DB Connection failed: " . $e->getMessage());
+            die("Connection failed: " . $e->getMessage());
         }
     }
 }
@@ -29,25 +30,25 @@ class User {
 
     public function register($data) {
         // Trim and extract input data
-        $full_name = trim($data['full_name']);
+        $full_name = trim($data['fullname']);
         $age = isset($data['age']) ? (int)$data['age'] : null;
-        $dob = trim($data['date_of_birth']);
+        $dob = trim($data['dob']);
         $gender = trim($data['gender']);
-        $username = trim($data['username']);
+        $username = trim($data['uname']);
         $email = trim($data['email']);
-        $phone = trim($data['phone_number']);
-        $address = trim($data['home_address']);
-        $issue = trim($data['health_issue']);
-        $goal = trim($data['main_goal']);
+        $phone = trim($data['phone']);
+        $address = trim($data['address']);
+        $issue = trim($data['issue']);
+        $goal = trim($data['description']);
         $password = $data['password'];
 
-        // ========== VALIDATION ==========
+        // input  validation
         if (empty($full_name)) return "Full name is required.";
         if (empty($dob)) return "Date of birth is required.";
-        if (!in_array($gender, ['Male', 'Female'])) return "Invalid gender.";
+        if (!in_array($gender, ['male', 'female'])) return "Invalid gender.";
         if (empty($username)) return "Username is required.";
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return "Invalid email format.";
-        if (!preg_match('/^07[0-9]{8}$/', $phone)) return "Invalid Sri Lankan phone number.";
+        if (!preg_match('/^\+?[0-9\s\-]{7,15}$/', $phone)) return "Invalid phone number.";
         if (empty($address)) return "Home address is required.";
         if (empty($issue)) return "Health issue is required.";
         if (empty($goal)) return "Main goal is required.";
@@ -56,15 +57,15 @@ class User {
         }
 
         // Password hashing
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // ========== INSERT QUERY ==========
+        // Insert data
         try {
             $stmt = $this->conn->prepare("
                 INSERT INTO users 
                     (full_name, age, date_of_birth, gender, username, password, email, phone_number, home_address, health_issue, main_goal) 
                 VALUES 
-                    (:full_name, :age, :dob, :gender, :username, :password, :email, :phone, :address, :issue, :goal)
+                    (:full_name, :age, :dob, :gender, :username, :hashedpassword, :email, :phone, :address, :issue, :goal)
             ");
 
             // Bind parameters
@@ -73,7 +74,7 @@ class User {
             $stmt->bindParam(':dob', $dob);
             $stmt->bindParam(':gender', $gender);
             $stmt->bindParam(':username', $username);
-            $stmt->bindParam(':password', $hashedPassword);
+            $stmt->bindParam(':hashedpassword', $hashedPassword);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':phone', $phone);
             $stmt->bindParam(':address', $address);
@@ -82,7 +83,7 @@ class User {
 
             $stmt->execute();
 
-            return "Registration successful!";
+            return "success";
         } catch (PDOException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return "Username or Email already exists.";
@@ -92,16 +93,34 @@ class User {
     }
 }
 
-// Handle the form POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // handle the form POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $db = new Database();
     $user = new User($db->conn);
-
+    
     $result = $user->register($_POST);
 
-    echo "<script>alert('". $result ."'); window.location.href='../signup.html';</script>";
-} else {
+    // Success: alert and redirect to login page
+    if($result==="success"){
+      echo "<script>
+           alert('Registration Successful!');
+           window.location.href='/WADProject/WAD-Project-Fitness-Tracker/login.html';
+          </script>";
+
+    }
+
+    // Failure: alert and redirect back to signup page
+    else{
+        echo "<script>
+        alert('".$result."');
+        window.location.href='/WADProject/WAD-Project-Fitness-Tracker/signup.html';
+        </script>";
+
+    }
+}
+else {
     header("Location: ../signup.html");
     exit();
 }
+
 ?>

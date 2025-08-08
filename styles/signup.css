@@ -80,6 +80,22 @@ button:hover {
   background-color: #019875;
 }
 
+.gender-options {
+  display: flex;
+  gap: 40px;
+}
+
+.gender-options label {
+  align-items: center;              
+  cursor: pointer; 
+  white-space: nowrap;  
+  gap: 5px;    
+}
+
+.gender-options input[type="radio"] {
+  margin-right:5px;     
+}
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;

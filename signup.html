@@ -11,17 +11,29 @@
       <div class="image-side"></div>
 
       <div class="form-side">
-        <form class="form-container" action="signup.php" method="POST">
+        <form class="form-container" action="http://localhost/WADProject/WAD-Project-Fitness-Tracker/signup.php" method="POST">
           <h2>Sign Up</h2>
 
           <label for="fullname">Full Name</label>
           <input type="text" id="fullname" name="fullname" required />
+
+          <label for="username">User Name</label>
+          <input type="text" id="uname" name="uname" required />
 
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" required />
 
           <label for="dob">Date of Birth</label>
           <input type="date" id="dob" name="dob" required />
+
+          <label for="age">Age</label>
+          <input type="text" id="age" name="age" required />
+
+          <label for="gender">Gender</label>
+          <div class="gender-options">
+           <label><input type="radio" value="male" name="gender" required/>Male</label>
+           <label><input type="radio" value="female" name="gender" required/>Female</label>
+           </div>
 
           <label for="address">Address</label>
           <input type="text" id="address" name="address" required />
@@ -36,13 +48,7 @@
           <textarea id="description" name="description" required></textarea>
 
           <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            minlength="8"
-            required
-          />
+          <input type="password" id="password" name="password"  minlength="8"  required />
 
           <button type="submit">Register</button>
         </form>

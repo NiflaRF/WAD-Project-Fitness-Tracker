@@ -4,191 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Profile</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family: "Segoe UI", sans-serif;
-        background-color: #f4f4f4;
-        color: #111;
-      }
-
-      header {
-        background-color: #111;
-        color: white;
-        padding: 1rem 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      header h1 span {
-        color: #00b894;
-      }
-
-      nav a {
-        color: white;
-        text-decoration: none;
-        margin-left: 1.2rem;
-        font-weight: 500;
-      }
-
-      nav a:hover {
-        text-decoration: underline;
-      }
-
-      .highlight-btn {
-        padding: 8px 14px;
-        border: 2px solid #00b894;
-        border-radius: 6px;
-        background-color: rgba(0, 184, 148, 0.1);
-        color: #00b894;
-        font-weight: 600;
-        transition: all 0.3s ease;
-      }
-
-      .highlight-btn:hover {
-        background-color: #00b894;
-        color: white;
-      }
-
-      .main-card {
-        display: flex;
-        flex-wrap: wrap;
-        background: white;
-        border: 2px solid #00b894;
-        border-radius: 16px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        margin: 30px auto;
-        max-width: 1200px;
-        padding: 30px;
-      }
-
-      .column {
-        flex: 1 1 300px;
-        padding: 20px;
-      }
-
-      /* First column */
-      .profile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .profile h2 {
-        margin-bottom: 15px;
-        color: #0d3b2e;
-      }
-
-      .profile img {
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        border: 5px solid #00b894;
-        object-fit: cover;
-      }
-
-      /* Buttons in profile column */
-      .profile-buttons {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-      }
-
-      .profile-buttons .btn {
-        background-color: #00b894;
-        border: none;
-        padding: 10px 18px;
-        color: white;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      .profile-buttons .btn:hover {
-        background-color: #019c77;
-      }
-
-      /* Inner cards */
-      .inner-card {
-        background: white;
-        border: 2px solid #00b894;
-        border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-bottom: 20px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .inner-card:hover {
-        transform: scale(1.02);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-      }
-
-      .inner-card h3 {
-        margin-bottom: 12px;
-        color: #118f70;
-      }
-
-      .inner-card ul {
-        list-style: none;
-        padding-left: 0;
-      }
-
-      .inner-card ul li {
-        margin-bottom: 8px;
-      }
-
-      /* BMI Calculator */
-      .bmi-calculator input {
-        width: 100%;
-        padding: 8px;
-        margin: 6px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-
-      .bmi-calculator button {
-        background-color: #20c997;
-        color: white;
-        padding: 10px;
-        width: 100%;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        margin-top: 10px;
-      }
-
-      .bmi-calculator p {
-        margin-top: 10px;
-        font-weight: bold;
-        color: #0d3b2e;
-      }
-
-      footer {
-        background: #111;
-        color: white;
-        text-align: center;
-        padding: 1rem 2rem;
-        margin-top: 30px;
-      }
-
-      @media (max-width: 900px) {
-        .main-card {
-          flex-direction: column;
-        }
-      }
-    </style>
-     <!--<link rel="stylesheet" href="styles/dashboard.css">-->
+    <link rel="stylesheet" href="styles/dashboard.css" />
   </head>
   <body>
     <header>
@@ -205,7 +21,9 @@
         <h2>Loading...</h2>
         <img src="photos/1308025.jpg" alt="Profile Photo" />
         <div class="profile-buttons">
-          <button class="btn">Update Profile</button>
+          <button class="btn" onclick="openUpdateModal()">
+            Update Profile
+          </button>
           <button class="btn">Update Photo</button>
         </div>
       </div>
@@ -250,17 +68,66 @@
       </div>
     </div>
 
+    <!-- Update Profile Modal -->
+    <div id="updateModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeUpdateModal()">&times;</span>
+        <h3 class="modal-title">Update Profile</h3>
+        <form id="updateProfileForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="full_name" required />
+          </div>
+
+          <div class="form-group">
+            <label>Age</label>
+            <input type="number" name="age" />
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" name="date_of_birth" />
+          </div>
+
+          <div class="form-group">
+            <label>Gender</label>
+            <input type="text" name="gender" />
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" name="phone_number" />
+          </div>
+
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="home_address" />
+          </div>
+
+          <div class="form-group">
+            <label>Main Goal</label>
+            <textarea name="main_goal"></textarea>
+          </div>
+
+          <button type="submit" class="btn modal-save-btn">
+            💾 Save Changes
+          </button>
+        </form>
+      </div>
+    </div>
+
     <footer>
       <p>&copy; 2025 Fitzy Fitness. All rights reserved.</p>
     </footer>
 
     <script>
-      // Fetch user data and update the dashboard
       async function loadUserData() {
         try {
-          const response = await fetch('dashboard.php', { credentials: 'include' });
+          const response = await fetch("dashboard.php", {
+            credentials: "include",
+          });
           if (!response.ok) {
-            throw new Error('Failed to load user data');
+            throw new Error("Failed to load user data");
           }
           const user = await response.json();
 
@@ -270,7 +137,7 @@
           }
 
           // Update profile column
-          document.querySelector('.profile h2').textContent = user.full_name;
+          document.querySelector(".profile h2").textContent = user.full_name;
 
           // Update Personal Details
           const personalDetails = `
@@ -279,22 +146,27 @@
             <li>DOB: ${user.date_of_birth}</li>
             <li>Gender: ${user.gender}</li>
           `;
-          document.querySelector('.main-card .column:nth-child(2) .inner-card:nth-child(1) ul').innerHTML = personalDetails;
+          document.querySelector(
+            ".main-card .column:nth-child(2) .inner-card:nth-child(1) ul"
+          ).innerHTML = personalDetails;
 
           // Update Contact Information
           const contactInfo = `
             <li>Email: ${user.email}</li>
-            <li>Phone: ${user.phone_number ?? 'N/A'}</li>
-            <li>Address: ${user.home_address ?? 'N/A'}</li>
+            <li>Phone: ${user.phone_number ?? "N/A"}</li>
+            <li>Address: ${user.home_address ?? "N/A"}</li>
           `;
-          document.querySelector('.main-card .column:nth-child(2) .inner-card:nth-child(2) ul').innerHTML = contactInfo;
+          document.querySelector(
+            ".main-card .column:nth-child(2) .inner-card:nth-child(2) ul"
+          ).innerHTML = contactInfo;
 
           // Update Goals & Motivation
-          document.querySelector('.main-card .column:nth-child(3) .inner-card:nth-child(1) p').textContent = user.main_goal ?? 'Not specified';
-
+          document.querySelector(
+            ".main-card .column:nth-child(3) .inner-card:nth-child(1) p"
+          ).textContent = user.main_goal ?? "Not specified";
         } catch (error) {
           console.error(error);
-          alert('Error loading user data');
+          alert("Error loading user data");
         }
       }
 
@@ -321,6 +193,122 @@
 
         result.textContent = `Your BMI is ${bmi} (${status})`;
       }
+
+      function openUpdateModal() {
+        document.getElementById("updateModal").style.display = "block";
+      }
+      function closeUpdateModal() {
+        document.getElementById("updateModal").style.display = "none";
+      }
+
+      // Close modal if clicking outside
+      window.onclick = function (event) {
+        if (event.target == document.getElementById("updateModal")) {
+          closeUpdateModal();
+        }
+      };
+
+      let userData = {};
+
+      async function loadUserData() {
+        try {
+          const response = await fetch("dashboard.php", {
+            credentials: "include",
+          });
+          const user = await response.json();
+
+          if (user.error) {
+            alert(user.error);
+            return;
+          }
+
+          userData = user; // store for later use
+
+          document.querySelector(".profile h2").textContent = user.full_name;
+
+          document.querySelector(
+            ".main-card .column:nth-child(2) .inner-card:nth-child(1) ul"
+          ).innerHTML = `
+      <li>Name: ${user.full_name}</li>
+      <li>Age: ${user.age}</li>
+      <li>DOB: ${user.date_of_birth}</li>
+      <li>Gender: ${user.gender}</li>
+    `;
+
+          document.querySelector(
+            ".main-card .column:nth-child(2) .inner-card:nth-child(2) ul"
+          ).innerHTML = `
+      <li>Email: ${user.email}</li>
+      <li>Phone: ${user.phone_number ?? "N/A"}</li>
+      <li>Address: ${user.home_address ?? "N/A"}</li>
+    `;
+
+          document.querySelector(
+            ".main-card .column:nth-child(3) .inner-card:nth-child(1) p"
+          ).textContent = user.main_goal ?? "Not specified";
+        } catch (error) {
+          console.error(error);
+          alert("Error loading user data");
+        }
+      }
+
+      function openUpdateModal() {
+        // Fill form with existing details
+        const form = document.getElementById("updateProfileForm");
+        form.full_name.value = userData.full_name || "";
+        form.age.value = userData.age || "";
+        form.date_of_birth.value = userData.date_of_birth || "";
+        form.gender.value = userData.gender || "";
+        form.phone_number.value = userData.phone_number || "";
+        form.home_address.value = userData.home_address || "";
+        form.main_goal.value = userData.main_goal || "";
+
+        document.getElementById("updateModal").style.display = "block";
+      }
+
+      function closeUpdateModal() {
+        document.getElementById("updateModal").style.display = "none";
+      }
+
+      document
+        .getElementById("updateProfileForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = {
+            full_name: this.full_name.value,
+            age: this.age.value,
+            date_of_birth: this.date_of_birth.value,
+            gender: this.gender.value,
+            phone_number: this.phone_number.value,
+            home_address: this.home_address.value,
+            main_goal: this.main_goal.value,
+          };
+
+          try {
+            const response = await fetch("update_profile.php", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              alert("Profile updated successfully!");
+              closeUpdateModal();
+              loadUserData(); // reload updated data
+            } else {
+              alert(result.error || "Update failed.");
+            }
+          } catch (error) {
+            console.error(error);
+            alert("An error occurred while updating the profile.");
+          }
+        });
+
+      window.onload = loadUserData;
     </script>
   </body>
 </html>

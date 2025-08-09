@@ -104,7 +104,7 @@ class User {
     if($result==="success"){
       echo "<script>
            alert('Registration Successful!');
-           window.location.href='/WADProject/WAD-Project-Fitness-Tracker/login.html';
+           window.location.href='/WAD-Project-Fitness-Tracker/login.html';
           </script>";
 
     }
@@ -113,13 +113,13 @@ class User {
     else{
         echo "<script>
         alert('".$result."');
-        window.location.href='/WADProject/WAD-Project-Fitness-Tracker/signup.html';
+        window.location.href='/WAD-Project-Fitness-Tracker/signup.html';
         </script>";
 
     }
 }
 else {
-    header("Location:/WADProject/WAD-Project-Fitness-Tracker/signup.html");
+    header("Location:/WAD-Project-Fitness-Tracker/signup.html");
     exit();
 }
 

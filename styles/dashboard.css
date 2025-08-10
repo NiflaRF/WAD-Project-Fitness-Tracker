@@ -267,3 +267,25 @@ textarea {
     opacity: 1;
   }
 }
+
+/* minimal styling additions for workout list */
+#workoutList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#workoutList li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+#workoutList li:last-child {
+  border-bottom: none;
+}
+.workout-time {
+  color: #666;
+  font-size: 0.9em;
+}
+.error {
+  color: red;
+  margin-top: 10px;
+}

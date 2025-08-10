@@ -118,20 +118,21 @@
               const card = document.createElement("div");
               card.className = "review-card";
               card.innerHTML = `
-                <div class="review-header">
-                  <img src="photos/avatar_img.png" class="reviewer-img" alt="${
-                    r.name
-                  }">
+            <div class="review-header">
+              <img src="photos/avatar_img.png" class="reviewer-img" alt="${
+                r.name
+              }">
 
-                  <div class="reviewer-info">
-                    <h4>${r.name}</h4>
-                    <div class="rating">${"★".repeat(r.rating)}${"☆".repeat(
+              <div class="reviewer-info">
+                <h4>${r.name}</h4>
+                <div class="rating">${"★".repeat(r.rating)}${"☆".repeat(
                 5 - r.rating
               )}</div>
-                  </div>
-                </div>
-                <p class="review-text">"${r.review}"</p>
-              `;
+              </div>
+            </div>
+            <p class="review-service"><b><i>${r.service}</i></b></p>
+            <p class="review-text">"${r.review}"</p>
+          `;
               reviewsGrid.appendChild(card);
             });
           });

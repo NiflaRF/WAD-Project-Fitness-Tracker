@@ -3,32 +3,40 @@
 session_start();
 
 // Database connection 
-class Database {
+class Database
+{
     private $host = "localhost";
-    private $db_name = "fitness_tracker"; 
+    private $db_name = "fitness_tracker";
     private $username = "root";
-    private $password = "root";
+    private $password = "";
     public $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         try {
-            $this->conn = new PDO("mysql:host={$this->host};dbname={$this->db_name}",
-            $this->username, $this->password);
+            $this->conn = new PDO(
+                "mysql:host={$this->host};dbname={$this->db_name}",
+                $this->username,
+                $this->password
+            );
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
     }
 }
 
-class User {
+class User
+{
     private $conn;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function register($data) {
+    public function register($data)
+    {
         // Trim and extract input data
         $full_name = trim($data['fullname']);
         $age = isset($data['age']) ? (int)$data['age'] : null;
@@ -93,34 +101,29 @@ class User {
     }
 }
 
-    // handle the form POST
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// handle the form POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $db = new Database();
     $user = new User($db->conn);
-    
+
     $result = $user->register($_POST);
 
     // Success: alert and redirect to login page
-    if($result==="success"){
-      echo "<script>
+    if ($result === "success") {
+        echo "<script>
            alert('Registration Successful!');
            window.location.href='/WAD-Project-Fitness-Tracker/login.html';
           </script>";
-
     }
 
     // Failure: alert and redirect back to signup page
-    else{
+    else {
         echo "<script>
-        alert('".$result."');
+        alert('" . $result . "');
         window.location.href='/WAD-Project-Fitness-Tracker/signup.html';
         </script>";
-
     }
-}
-else {
+} else {
     header("Location:/WAD-Project-Fitness-Tracker/signup.html");
     exit();
 }
-
-?>

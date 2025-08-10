@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Profile</title>
     <link rel="stylesheet" href="styles/dashboard.css" />
+    <style>
+      /* minimal styling additions for workout list */
+      #workoutList { list-style: none; padding: 0; margin: 0; }
+      #workoutList li { padding: 10px; border-bottom: 1px solid #eee; }
+      #workoutList li:last-child { border-bottom: none; }
+      .workout-time { color: #666; font-size: 0.9em; }
+      .error { color: red; margin-top: 10px; }
+    </style>
   </head>
   <body>
     <header>
@@ -18,12 +26,10 @@
     <div class="main-card">
       <!-- Column 1 -->
       <div class="column profile">
-        <h2>Loading...</h2>
+        <h2 id="profileName">Loading...</h2>
         <img src="photos/1308025.jpg" alt="Profile Photo" />
         <div class="profile-buttons">
-          <button class="btn" onclick="openUpdateModal()">
-            Update Profile
-          </button>
+          <button class="btn" onclick="openUpdateModal()">Update Profile</button>
           <button class="btn">Update Photo</button>
         </div>
       </div>
@@ -32,30 +38,14 @@
       <div class="column">
         <div class="inner-card">
           <h3>📌 Personal Details</h3>
-          <ul>
+          <ul id="personalDetails">
             <li>Name: Loading...</li>
             <li>Age: Loading...</li>
             <li>DOB: Loading...</li>
             <li>Gender: Loading...</li>
           </ul>
         </div>
-        <div class="inner-card">
-          <h3>📞 Contact Information</h3>
-          <ul>
-            <li>Email: Loading...</li>
-            <li>Phone: Loading...</li>
-            <li>Address: Loading...</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Column 3 -->
-      <div class="column">
-        <div class="inner-card">
-          <h3>🎯 Goals & Motivation</h3>
-          <p>Loading...</p>
-        </div>
-
+        
         <div class="inner-card bmi-calculator">
           <h3>📊 BMI Calculator</h3>
           <label for="height">Height (cm):</label>
@@ -66,249 +56,217 @@
           <p id="bmiResult"></p>
         </div>
       </div>
+
+      <!-- Column 3 -->
+      <div class="column">
+        <div class="inner-card">
+          <h3>🎯 Goals & Motivation</h3>
+          <p id="mainGoal">Loading...</p>
+
+          <h3>✔️Completed Workouts</h3>
+          <ul id="workoutList">
+            <li>Loading...</li>
+          </ul>
+        </div>
+       <div class="inner-card">
+          <h3>📞 Contact Information</h3>
+          <ul id="contactInfo">
+            <li>Email: Loading...</li>
+            <li>Phone: Loading...</li>
+            <li>Address: Loading...</li>
+          </ul>
+        </div>
+        
+      </div>
     </div>
 
     <!-- Update Profile Modal -->
-    <div id="updateModal" class="modal">
+    <div id="updateModal" class="modal" style="display:none;">
       <div class="modal-content">
         <span class="close" onclick="closeUpdateModal()">&times;</span>
         <h3 class="modal-title">Update Profile</h3>
         <form id="updateProfileForm">
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" name="full_name" required />
-          </div>
-
-          <div class="form-group">
-            <label>Age</label>
-            <input type="number" name="age" />
-          </div>
-
-          <div class="form-group">
-            <label>Date of Birth</label>
-            <input type="date" name="date_of_birth" />
-          </div>
-
-          <div class="form-group">
-            <label>Gender</label>
-            <input type="text" name="gender" />
-          </div>
-
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input type="text" name="phone_number" />
-          </div>
-
-          <div class="form-group">
-            <label>Address</label>
-            <input type="text" name="home_address" />
-          </div>
-
-          <div class="form-group">
-            <label>Main Goal</label>
-            <textarea name="main_goal"></textarea>
-          </div>
-
-          <button type="submit" class="btn modal-save-btn">
-            💾 Save Changes
-          </button>
+          <div class="form-group"><label>Full Name</label><input type="text" name="full_name" required /></div>
+          <div class="form-group"><label>Age</label><input type="number" name="age" /></div>
+          <div class="form-group"><label>Date of Birth</label><input type="date" name="date_of_birth" /></div>
+          <div class="form-group"><label>Gender</label><input type="text" name="gender" /></div>
+          <div class="form-group"><label>Phone Number</label><input type="text" name="phone_number" /></div>
+          <div class="form-group"><label>Address</label><input type="text" name="home_address" /></div>
+          <div class="form-group"><label>Main Goal</label><textarea name="main_goal"></textarea></div>
+          <button type="submit" class="btn modal-save-btn">💾 Save Changes</button>
         </form>
       </div>
     </div>
+
+    <div id="pageError" class="error" style="display:none;"></div>
 
     <footer>
       <p>&copy; 2025 Fitzy Fitness. All rights reserved.</p>
     </footer>
 
     <script>
+      // Single source of truth
+      let userData = {};
+
       async function loadUserData() {
         try {
-          const response = await fetch("dashboard.php", {
-            credentials: "include",
-          });
-          if (!response.ok) {
-            throw new Error("Failed to load user data");
+          const resp = await fetch('dashboard.php', { credentials: 'include' });
+          if (!resp.ok) {
+            if (resp.status === 401) {
+              // Not logged in — redirect or show message
+              document.getElementById('pageError').textContent = 'You are not logged in. Please log in.';
+              document.getElementById('pageError').style.display = 'block';
+              return;
+            }
+            throw new Error('Server returned ' + resp.status);
           }
-          const user = await response.json();
 
-          if (user.error) {
-            alert(user.error);
+          const data = await resp.json();
+
+          if (data.error) {
+            document.getElementById('pageError').textContent = data.error;
+            document.getElementById('pageError').style.display = 'block';
             return;
           }
 
-          // Update profile column
-          document.querySelector(".profile h2").textContent = user.full_name;
+          userData = data;
 
-          // Update Personal Details
-          const personalDetails = `
-            <li>Name: ${user.full_name}</li>
-            <li>Age: ${user.age}</li>
-            <li>DOB: ${user.date_of_birth}</li>
-            <li>Gender: ${user.gender}</li>
+          // Profile column
+          document.getElementById('profileName').textContent = data.full_name || 'No name';
+
+          // Personal details
+          document.getElementById('personalDetails').innerHTML = `
+            <li>Name: ${data.full_name || 'N/A'}</li>
+            <li>Age: ${data.age ?? 'N/A'}</li>
+            <li>DOB: ${data.date_of_birth || 'N/A'}</li>
+            <li>Gender: ${data.gender || 'N/A'}</li>
           `;
-          document.querySelector(
-            ".main-card .column:nth-child(2) .inner-card:nth-child(1) ul"
-          ).innerHTML = personalDetails;
 
-          // Update Contact Information
-          const contactInfo = `
-            <li>Email: ${user.email}</li>
-            <li>Phone: ${user.phone_number ?? "N/A"}</li>
-            <li>Address: ${user.home_address ?? "N/A"}</li>
+          // Contact Info
+          document.getElementById('contactInfo').innerHTML = `
+            <li>Email: ${data.email || 'N/A'}</li>
+            <li>Phone: ${data.phone_number || 'N/A'}</li>
+            <li>Address: ${data.home_address || 'N/A'}</li>
           `;
-          document.querySelector(
-            ".main-card .column:nth-child(2) .inner-card:nth-child(2) ul"
-          ).innerHTML = contactInfo;
 
-          // Update Goals & Motivation
-          document.querySelector(
-            ".main-card .column:nth-child(3) .inner-card:nth-child(1) p"
-          ).textContent = user.main_goal ?? "Not specified";
-        } catch (error) {
-          console.error(error);
-          alert("Error loading user data");
+          // Main goal
+          document.getElementById('mainGoal').textContent = data.main_goal || 'Not specified';
+
+          // Workouts list
+          const list = document.getElementById('workoutList');
+          list.innerHTML = '';
+          if (data.workouts && data.workouts.length > 0) {
+            data.workouts.forEach(w => {
+              const li = document.createElement('li');
+              const title = document.createElement('div');
+              title.innerHTML = `<strong>${escapeHtml(w.title)}</strong>`;
+              const desc = document.createElement('div');
+              desc.textContent = w.description || '';
+              const meta = document.createElement('div');
+              meta.className = 'workout-time';
+              meta.textContent = w.completed_at ? `Completed: ${w.completed_at}` : '';
+              li.appendChild(title);
+              li.appendChild(desc);
+              li.appendChild(meta);
+              list.appendChild(li);
+            });
+          } else {
+            list.innerHTML = '<li>No completed workouts yet.</li>';
+          }
+
+        } catch (err) {
+          console.error(err);
+          document.getElementById('pageError').textContent = 'Error loading user data: ' + err.message;
+          document.getElementById('pageError').style.display = 'block';
         }
       }
 
-      window.onload = loadUserData;
+      // small helper to avoid XSS (though backend should sanitize)
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>"'`=\/]/g, function(s) {
+          return ({
+            '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#x2F;','`':'&#x60;','=':'&#x3D;'
+          })[s];
+        });
+      }
 
+      // Update profile modal behavior (fills form with userData)
+      function openUpdateModal() {
+        const form = document.getElementById('updateProfileForm');
+        form.full_name.value = userData.full_name || '';
+        form.age.value = userData.age || '';
+        form.date_of_birth.value = userData.date_of_birth || '';
+        form.gender.value = userData.gender || '';
+        form.phone_number.value = userData.phone_number || '';
+        form.home_address.value = userData.home_address || '';
+        form.main_goal.value = userData.main_goal || '';
+        document.getElementById('updateModal').style.display = 'block';
+      }
+      function closeUpdateModal() {
+        document.getElementById('updateModal').style.display = 'none';
+      }
+
+      // Submit profile update (calls update_profile.php) - keep existing behavior
+      document.getElementById('updateProfileForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = {
+          full_name: this.full_name.value,
+          age: this.age.value,
+          date_of_birth: this.date_of_birth.value,
+          gender: this.gender.value,
+          phone_number: this.phone_number.value,
+          home_address: this.home_address.value,
+          main_goal: this.main_goal.value
+        };
+        try {
+          const resp = await fetch('update_profile.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(formData)
+          });
+          const res = await resp.json();
+          if (res.success) {
+            alert('Profile updated!');
+            closeUpdateModal();
+            loadUserData();
+          } else {
+            alert(res.error || 'Update failed');
+          }
+        } catch(err) {
+          console.error(err);
+          alert('Error updating profile');
+        }
+      });
+
+      // BMI function
       function calculateBMI() {
-        const height = parseFloat(document.getElementById("height").value);
-        const weight = parseFloat(document.getElementById("weight").value);
-        const result = document.getElementById("bmiResult");
-
+        const height = parseFloat(document.getElementById('height').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        const result = document.getElementById('bmiResult');
         if (!height || !weight || height <= 0 || weight <= 0) {
           result.textContent = "Please enter valid height and weight.";
           return;
         }
-
         const heightM = height / 100;
         const bmi = (weight / (heightM * heightM)).toFixed(1);
-
         let status = "";
         if (bmi < 18.5) status = "Underweight";
         else if (bmi < 24.9) status = "Normal weight";
         else if (bmi < 29.9) status = "Overweight";
         else status = "Obese";
-
         result.textContent = `Your BMI is ${bmi} (${status})`;
       }
 
-      function openUpdateModal() {
-        document.getElementById("updateModal").style.display = "block";
-      }
-      function closeUpdateModal() {
-        document.getElementById("updateModal").style.display = "none";
-      }
-
-      // Close modal if clicking outside
-      window.onclick = function (event) {
-        if (event.target == document.getElementById("updateModal")) {
-          closeUpdateModal();
-        }
-      };
-
-      let userData = {};
-
-      async function loadUserData() {
-        try {
-          const response = await fetch("dashboard.php", {
-            credentials: "include",
-          });
-          const user = await response.json();
-
-          if (user.error) {
-            alert(user.error);
-            return;
-          }
-
-          userData = user; // store for later use
-
-          document.querySelector(".profile h2").textContent = user.full_name;
-
-          document.querySelector(
-            ".main-card .column:nth-child(2) .inner-card:nth-child(1) ul"
-          ).innerHTML = `
-      <li>Name: ${user.full_name}</li>
-      <li>Age: ${user.age}</li>
-      <li>DOB: ${user.date_of_birth}</li>
-      <li>Gender: ${user.gender}</li>
-    `;
-
-          document.querySelector(
-            ".main-card .column:nth-child(2) .inner-card:nth-child(2) ul"
-          ).innerHTML = `
-      <li>Email: ${user.email}</li>
-      <li>Phone: ${user.phone_number ?? "N/A"}</li>
-      <li>Address: ${user.home_address ?? "N/A"}</li>
-    `;
-
-          document.querySelector(
-            ".main-card .column:nth-child(3) .inner-card:nth-child(1) p"
-          ).textContent = user.main_goal ?? "Not specified";
-        } catch (error) {
-          console.error(error);
-          alert("Error loading user data");
-        }
-      }
-
-      function openUpdateModal() {
-        // Fill form with existing details
-        const form = document.getElementById("updateProfileForm");
-        form.full_name.value = userData.full_name || "";
-        form.age.value = userData.age || "";
-        form.date_of_birth.value = userData.date_of_birth || "";
-        form.gender.value = userData.gender || "";
-        form.phone_number.value = userData.phone_number || "";
-        form.home_address.value = userData.home_address || "";
-        form.main_goal.value = userData.main_goal || "";
-
-        document.getElementById("updateModal").style.display = "block";
-      }
-
-      function closeUpdateModal() {
-        document.getElementById("updateModal").style.display = "none";
-      }
-
-      document
-        .getElementById("updateProfileForm")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault();
-
-          const formData = {
-            full_name: this.full_name.value,
-            age: this.age.value,
-            date_of_birth: this.date_of_birth.value,
-            gender: this.gender.value,
-            phone_number: this.phone_number.value,
-            home_address: this.home_address.value,
-            main_goal: this.main_goal.value,
-          };
-
-          try {
-            const response = await fetch("update_profile.php", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              credentials: "include",
-              body: JSON.stringify(formData),
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-              alert("Profile updated successfully!");
-              closeUpdateModal();
-              loadUserData(); // reload updated data
-            } else {
-              alert(result.error || "Update failed.");
-            }
-          } catch (error) {
-            console.error(error);
-            alert("An error occurred while updating the profile.");
-          }
-        });
-
+      // Init
       window.onload = loadUserData;
+
+      // close modal on outside click
+      window.onclick = function(e) {
+        const modal = document.getElementById('updateModal');
+        if (e.target == modal) closeUpdateModal();
+      };
     </script>
   </body>
 </html>

@@ -10,45 +10,34 @@ body {
   color: #111;
 }
 
-header {
-  background-color: #111;
-  color: white;
-  padding: 1rem 2rem;
+/* Header */
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-header h1 span {
-  color: #00b894;
-}
-
-nav a {
+  background: #111;
+  padding: 15px 40px;
   color: white;
+}
+
+.navbar h1 {
+  font-size: 24px;
+}
+
+.navbar h1 span {
+  color: #5dd28e;
+}
+
+.nav-links a {
+  color: white;
+  margin-left: 20px;
   text-decoration: none;
-  margin-left: 1.2rem;
   font-weight: 500;
 }
 
-nav a:hover {
-  text-decoration: underline;
+.nav-links a:hover {
+  color: #5dd28e;
 }
-
-.highlight-btn {
-  padding: 8px 14px;
-  border: 2px solid #00b894;
-  border-radius: 6px;
-  background-color: rgba(0, 184, 148, 0.1);
-  color: #00b894;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.highlight-btn:hover {
-  background-color: #00b894;
-  color: white;
-}
-
 .main-card {
   display: flex;
   flex-wrap: wrap;

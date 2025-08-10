@@ -18,47 +18,34 @@
         color: #333;
       }
 
-      header {
+      /* Header */
+      .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem 2rem;
-        background: #222;
-        color: #fff;
-      }
-
-      header h1 span {
-        color: #00b894;
-      }
-
-      nav a {
-        color: #fff;
-        text-decoration: none;
-        margin-left: 1rem;
-        font-weight: bold;
-      }
-
-      nav a[href="review.html"] {
-        border: 2px solid #00b894;
-        padding: 6px 10px;
-        border-radius: 4px;
-      }
-
-      .highlight-btn {
-        padding: 8px 14px;
-        border: 2px solid #00b894;
-        border-radius: 6px;
-        background-color: rgba(0, 184, 148, 0.1);
-        color: #00b894;
-        font-weight: 600;
-        transition: all 0.3s ease;
-      }
-
-      .highlight-btn:hover {
-        background-color: #00b894;
+        background: #111;
+        padding: 15px 40px;
         color: white;
       }
 
+      .navbar h1 {
+        font-size: 24px;
+      }
+
+      .navbar h1 span {
+        color: #5dd28e;
+      }
+
+      .nav-links a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .nav-links a:hover {
+        color: #5dd28e;
+      }
       .about {
         padding: 3rem 2rem;
         max-width: 1100px;
@@ -182,10 +169,11 @@
     <!--<link rel="stylesheet" href="styles/aboutus.css">-->
   </head>
   <body>
-    <header>
+    <!-- Header -->
+    <header class="navbar">
       <h1>Fitzy <span>Fitness</span></h1>
-      <nav>
-        <a href="index.html" class="highlight-btn">Back</a>
+      <nav class="nav-links">
+        <a href="index.html">Back</a>
       </nav>
     </header>
 
@@ -248,7 +236,7 @@
     </section>
 
     <footer>
-      <p>&copy; 2025 Fitzy Fitness. All Rights Reserved.</p>
+      <p>2025 Fitzy Fitness. All Rights Reserved.| Designed by CST-08 – UWU</p>
     </footer>
   </body>
 </html>

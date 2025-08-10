@@ -307,125 +307,127 @@
     </div>
     <footer>
       <div class="footer-content">
-        <p>&copy; 2025 Fitzy Fitness. All Rights Reserved.</p>
+        <p>
+          2025 Fitzy Fitness. All Rights Reserved.| Designed by CST-08 – UWU
+        </p>
       </div>
     </footer>
 
-    <!-- Modal -->
-    <div id="goalModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2 id="modal-title">[Goal Name]</h2>
-        <ul id="modal-exercises">
-          <!-- JS will populate -->
-        </ul>
-        <button class="done-btn">Mark as Done</button>
-      </div>
-    </div>
+<!-- Modal -->
+<div id="goalModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modal-title">[Goal Name]</h2>
+    <ul id="modal-exercises">
+      <!-- JS will populate -->
+    </ul>
+    <button id="doneButton" class="done-btn">Mark as Done</button>
+  </div>
+</div>
 
-    <!-- JavaScript -->
-    <script>
-      const goalCards = document.querySelectorAll(".card");
-      const modal = document.getElementById("goalModal");
-      const modalTitle = document.getElementById("modal-title");
-      const modalExercises = document.getElementById("modal-exercises");
-      const closeModal = document.querySelector(".close");
-      const doneButton = document.getElementById("doneButton");
+<script>
+  const goalCards = document.querySelectorAll(".card");
+  const modal = document.getElementById("goalModal");
+  const modalTitle = document.getElementById("modal-title");
+  const modalExercises = document.getElementById("modal-exercises");
+  const closeModal = document.querySelector(".close");
+  const doneButton = document.getElementById("doneButton");
 
-      const exampleExercises = {
-        "Lose Weight": [
-          "Jump rope – 5 min",
-          "Running – 15 min",
-          "Burpees – 3 sets",
-        ],
-        "Build Muscle": [
-          "Push-ups – 3 sets",
-          "Deadlifts – 3 sets",
-          "Bicep Curls – 3 sets",
-        ],
-        "Cardio Training": [
-          "High knees – 2 min",
-          "Treadmill – 20 min",
-          "Mountain climbers – 3 sets",
-        ],
-        "Yoga and Flexibility": [
-          "Downward Dog – 2 min",
-          "Sun Salutation – 3 rounds",
-          "Child's Pose – 3 min",
-        ],
-        "Full Body": [
-          "Jump Squats – 3 sets",
-          "Push-ups – 3 sets",
-          "Plank – 1 min",
-        ],
-        "Upper Body": ["Push-ups", "Pull-ups", "Shoulder press"],
-        "Lower Body": ["Squats", "Lunges", "Calf raises"],
-        Stretching: ["Hamstring stretch", "Quad stretch", "Calf stretch"],
-      };
+  const exampleExercises = {
+    "Lose Weight": [
+      "Jump rope – 5 min",
+      "Running – 15 min",
+      "Burpees – 3 sets",
+    ],
+    "Build Muscle": [
+      "Push-ups – 3 sets",
+      "Deadlifts – 3 sets",
+      "Bicep Curls – 3 sets",
+    ],
+    "Cardio Training": [
+      "High knees – 2 min",
+      "Treadmill – 20 min",
+      "Mountain climbers – 3 sets",
+    ],
+    "Yoga and Flexibility": [
+      "Downward Dog – 2 min",
+      "Sun Salutation – 3 rounds",
+      "Child's Pose – 3 min",
+    ],
+    "Full Body": [
+      "Jump Squats – 3 sets",
+      "Push-ups – 3 sets",
+      "Plank – 1 min",
+    ],
+    "Upper Body": ["Push-ups", "Pull-ups", "Shoulder press"],
+    "Lower Body": ["Squats", "Lunges", "Calf raises"],
+    Stretching: ["Hamstring stretch", "Quad stretch", "Calf stretch"],
+  };
 
-      const goalWorkoutIds = {
-        "Lose Weight": 1,
-        "Build Muscle": 2,
-        "Cardio Training": 3,
-        "Yoga and Flexibility": 4,
-        "Full Body": 5,
-        "Upper Body": 6,
-        "Lower Body": 7,
-        Stretching: 8,
-      };
+  const goalWorkoutIds = {
+    "Lose Weight": 1,
+    "Build Muscle": 2,
+    "Cardio Training": 3,
+    "Yoga and Flexibility": 4,
+    "Full Body": 5,
+    "Upper Body": 6,
+    "Lower Body": 7,
+    Stretching: 8,
+  };
 
-      let currentWorkoutId = null;
+  let currentWorkoutId = null;
 
-      goalCards.forEach((card) => {
-        card.addEventListener("click", () => {
-          const goalName = card.getAttribute("data-goal");
-          modalTitle.textContent = goalName;
-          modalExercises.innerHTML = "";
+  goalCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const goalName = card.getAttribute("data-goal");
+      modalTitle.textContent = goalName;
+      modalExercises.innerHTML = "";
 
-          const exercises = exampleExercises[goalName] || [
-            "No exercises found.",
-          ];
-          exercises.forEach((ex) => {
-            const li = document.createElement("li");
-            li.textContent = ex;
-            modalExercises.appendChild(li);
-          });
-
-          currentWorkoutId = goalWorkoutIds[goalName];
-          modal.style.display = "block";
-        });
+      const exercises = exampleExercises[goalName] || [
+        "No exercises found.",
+      ];
+      exercises.forEach((ex) => {
+        const li = document.createElement("li");
+        li.textContent = ex;
+        modalExercises.appendChild(li);
       });
 
-      closeModal.onclick = () => {
-        modal.style.display = "none";
-      };
+      currentWorkoutId = goalWorkoutIds[goalName];
+      modal.style.display = "block";
+    });
+  });
 
-      window.onclick = (event) => {
-        if (event.target === modal) {
+  closeModal.onclick = () => {
+    modal.style.display = "none";
+  };
+
+  window.onclick = (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  doneButton.addEventListener("click", () => {
+    if (currentWorkoutId) {
+      fetch("mark_done.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `workout_id=${currentWorkoutId}`,
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          alert(data); // Can replace with a nicer UI message
           modal.style.display = "none";
-        }
-      };
+        })
+        .catch((err) => {
+          alert("Failed to mark workout.");
+          console.error(err);
+        });
+    }
+  });
+</script>
 
-      doneButton.addEventListener("click", () => {
-        if (currentWorkoutId) {
-          fetch("mark_done.php", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: `workout_id=${currentWorkoutId}`,
-          })
-            .then((response) => response.text())
-            .then((data) => {
-              alert(data); // Or show a nice modal message
-              modal.style.display = "none";
-            })
-            .catch((err) => {
-              alert("Failed to mark workout.");
-              console.error(err);
-            });
-        }
-      });
-    </script>
   </body>
 </html>

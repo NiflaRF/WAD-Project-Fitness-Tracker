@@ -16,24 +16,33 @@
         background-color: #f4f4f4;
       }
 
-      header {
+     /* Header */
+      .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem 2rem;
-        background: #222;
-        color: #fff;
+        background: #111;
+        padding: 15px 40px;
+        color: white;
       }
 
-      header h1 span {
-        color: #00b894;
+      .navbar h1 {
+        font-size: 24px;
       }
 
-      nav a {
-        color: #fff;
+      .navbar h1 span {
+        color: #5dd28e;
+      }
+
+      .nav-links a {
+        color: white;
+        margin-left: 20px;
         text-decoration: none;
-        margin-left: 1rem;
-        font-weight: bold;
+        font-weight: 500;
+      }
+
+      .nav-links a:hover {
+        color: #5dd28e;
       }
 
       .hero {
@@ -171,12 +180,12 @@
     <!--<link rel="stylesheet" href="styles/home.css">-->
   </head>
   <body>
-    <header>
+     <!-- Header -->
+    <header class="navbar">
       <h1>Fitzy <span>Fitness</span></h1>
-      <nav>
+      <nav class="nav-links">
         <a href="home.html">Home</a>
         <a href="workout.html">Workout</a>
-        <a href="aboutus.html">About Us</a>
         <a href="review.html">Review</a>
         <a href="dashboard.html">Dashboard</a>
       </nav>
@@ -286,7 +295,7 @@
     </section>
 <footer>
       <div class="footer-content">
-        <p>&copy; 2025 Fitzy Fitness. All Rights Reserved.</p>
+        <p>2025 Fitzy Fitness. All Rights Reserved.| Designed by CST-08 – UWU</p>
       </div>
     </footer>
   </body>

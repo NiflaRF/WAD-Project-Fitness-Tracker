@@ -26,17 +26,15 @@ $user_id = $_SESSION['user_id'];
 
 // Prepare the SQL statement
 $query = "UPDATE users 
-          SET full_name = ?, age = ?, date_of_birth = ?, gender = ?, 
+          SET full_name = ?, age = ?, 
               phone_number = ?, home_address = ?, main_goal = ? 
           WHERE user_id = ?";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param(
-    "sisssssi",
+    "sisssi",
     $data['full_name'],
-    $data['age'],
-    $data['date_of_birth'],
-    $data['gender'],
+    $data['age'], 
     $data['phone_number'],
     $data['home_address'],
     $data['main_goal'],
